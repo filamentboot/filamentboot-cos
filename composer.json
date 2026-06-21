@@ -1,0 +1,87 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "filamentboot/filamentboot-cos",
+    "description": "腾讯云 COS 存储插件：为 filamentboot/filamentboot 提供 COS 凭证后台配置与 Flysystem 磁盘注入。",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["filament", "laravel", "cos", "tencent", "storage", "filament-plugin", "cloud-storage", "admin-panel"],
+    "homepage": "https://github.com/filamentboot/filamentboot-cos",
+    "authors": [
+        {
+            "name": "johncaptain",
+            "email": "JasonTodd0521@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/filamentboot/filamentboot-cos/issues",
+        "source": "https://github.com/filamentboot/filamentboot-cos",
+        "docs": "https://github.com/filamentboot/workspace/wiki/cos-plugin",
+        "wiki": "https://github.com/filamentboot/workspace/wiki"
+    },
+    "require": {
+        "php": "^8.3",
+        "filament/spatie-laravel-settings-plugin": "^5.6",
+        "filamentboot/filamentboot": "^0.5",
+        "overtrue/laravel-filesystem-cos": "^4.0",
+        "spatie/laravel-settings": "^3.9"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.27",
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^12.5.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "Filamentboot\\FilamentbootCos\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Filamentboot\\FilamentbootCos\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Filamentboot\\FilamentbootCos\\CosServiceProvider"
+            ]
+        },
+        "filamentboot": {
+            "slug": "filamentboot-cos",
+            "name": "腾讯云 COS 存储",
+            "type": "package",
+            "source": "official_listed",
+            "plugin_class": "Filamentboot\\FilamentbootCos\\CosPlugin",
+            "settings_page_slug": "settings/cos",
+            "service_provider": "Filamentboot\\FilamentbootCos\\CosServiceProvider",
+            "description": "腾讯云对象存储（COS）驱动插件，支持超管在后台直接配置凭证，无需修改 .env 文件。",
+            "requires": ["filamentboot/filamentboot"],
+            "compatibility": {
+                "laravel/framework": "^13.0",
+                "filament/filament": "^5.0"
+            },
+            "post_install": {
+                "publish_tags": ["filamentboot-cos-config"],
+                "run_migrations": false,
+                "seeders": []
+            }
+        },
+        "branch-alias": {
+            "dev-main": "0.5.x-dev"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit -c phpunit.xml.dist",
+        "test-coverage": "vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.xml",
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "pint": "vendor/bin/pint",
+        "pint:test": "vendor/bin/pint --test"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
